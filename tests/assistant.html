@@ -1,0 +1,8 @@
+<!DOCTYPE html><meta charset="utf-8"><script type="module">
+// Batterie de questions pour l'assistant (FR + EN) — affiche les réponses en texte brut.
+import { reply } from "../js/assistant.js";
+const qs = [["bonjour","fr"],["vous faites quoi ?","fr"],["combien coûtent vos pneus ?","fr"],["vous avez les pneus 315/80 R22.5 ?","fr"],["et le prix ?","fr"],["je veux louer un camion grue","fr"],["où êtes-vous situés ?","fr"],["vous êtes ouverts le samedi ?","fr"],["c'est quoi votre numéro whatsapp","fr"],["je veux faire la vidange de mon camion","fr"],["vous faites le lavage ?","fr"],["mon camion est en panne sur la route","fr"],["vous acceptez orange money ?","fr"],["vous recrutez des chauffeurs ?","fr"],["vous transportez des marchandises vers Yaoundé ?","fr"],["vous êtes sérieux ?","fr"],["depuis quand vous existez","fr"],["merci beaucoup","fr"],["do you sell truck tires?","fr"],["where are you located?","en"],["how much to rent a crane truck","en"],["vous vendez des voitures ?","fr"],["qui est le fondateur ?","fr"],["vous faites le dédouanement ?","fr"],["je veux louer une voiture","fr"],["vous livrez au Tchad ?","fr"],["vous faites le parallélisme ?","fr"],["do you offer warehousing?","en"],["j'ai besoin de personnel pour décharger","fr"]];
+let ctx = {}; const out = [];
+for (const [q, l] of qs) { const r = reply(q, ctx, l); ctx = r.ctx; const d = document.createElement("div"); d.innerHTML = r.html; out.push(`Q: ${q}\nA(${r.lang}): ${d.textContent.replace(/\s+/g, " ").slice(0, 240)}`); }
+fetch("/log", { method: "POST", body: out.join("\n\n") });
+</script>
