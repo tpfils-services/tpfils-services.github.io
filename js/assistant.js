@@ -58,7 +58,7 @@ const INTENTS = [
   { id: "hours", re: /\b(horaires?|heures?|ouvert\w*|ferm\w*|hours?|open\w*|clos\w*|samedi|dimanche|saturday|sunday|week-?end|aujourd'hui|today|demain|tomorrow)\b/, w: 3,
     a: (L) => `${esc(BIZ.hours[L])}. ${L === "fr" ? "En dehors de ces heures ou en cas d'urgence, appelez-nous ou laissez un message WhatsApp." : "Outside these hours or in an emergency, call us or leave a WhatsApp message."}${contactBtns(L)}` },
   { id: "contact", re: /\b(contact\w*|t[ée]l[ée]phone|phone|num[ée]ro|number|appeler|call|joindre|reach|whatsapp|wa|email|e-mail|mail|courriel|joignable)\b/, w: 3,
-    a: (L) => `📞 ${BIZ.phones.map((p) => `<a href="tel:${p.tel}">${p.label}</a>`).join(" · ")}<br>💬 WhatsApp : <a href="${wa(L === "fr" ? "Bonjour TP & Fils" : "Hello TP & Fils")}" target="_blank" rel="noopener">${BIZ.phones[0].label}</a><br>✉️ <a href="mailto:${BIZ.email}">${BIZ.email}</a>${contactBtns(L)}` },
+    a: (L) => `📞 ${BIZ.phones.map((p) => `<a href="tel:${p.tel}">${p.label}</a>`).join(" · ")}<br>💬 WhatsApp : <a href="${wa(L === "fr" ? "Bonjour TP & Fils" : "Hello TP & Fils")}" target="_blank" rel="noopener">${BIZ.phones.find((p) => p.whatsapp).label}</a><br>✉️ <a href="mailto:${BIZ.email}">${BIZ.email}</a>${contactBtns(L)}` },
   { id: "founder", re: /\b(fondateur|founder|directeur|dg|patron|boss|owner|propri[ée]taire|talla|ceo|pdg|g[ée]rant)\b/, w: 3.2,
     a: (L) => L === "fr" ? `TP & FILS Services SARL a été fondée en ${BIZ.founded} par <b>M. ${FOUNDER.name}</b>, ${FOUNDER.fr.role}. Sous sa direction, l'entreprise est devenue une référence dans le transport, la logistique et les services au Port de Douala. Sa vision : un partenaire de confiance qui gère tout sous un même toit, des pneumatiques jusqu'au dédouanement.` : `TP & FILS Services SARL was founded in ${BIZ.founded} by <b>Mr. ${FOUNDER.name}</b>, ${FOUNDER.en.role}. Under his leadership, the company has become a reference in transport, logistics and services at the Port of Douala. His vision: a trusted partner that handles everything under one roof, from tires to customs clearance.` },
   { id: "about", re: /\b(qui (êtes|etes)|about|histoire|history|depuis|since|founded|cr[ée][ée]e?|fond[ée]e?|entreprise|company|employ[ée]s|staff|exp[ée]rience)\b/, w: 2.2,
@@ -120,9 +120,9 @@ export function mountAssistant(getLang) {
     root.querySelector(".asst-note").textContent = T[L].note;
   };
   root.innerHTML = `
-    <button class="asst-fab" id="asstFab" aria-label="Chat"><img src="assets/img/logo-tpfils.jpg" alt="" /><span></span></button>
+    <button class="asst-fab" id="asstFab" aria-label="Chat"><img src="assets/img/favicon.png" alt="" /><span></span></button>
     <section class="asst-panel" id="asstPanel" role="dialog" aria-label="Assistant" hidden>
-      <header class="asst-head"><img src="assets/img/logo-tpfils.jpg" alt="" /><div><b></b><small></small></div><button class="asst-x" id="asstClose" aria-label="Fermer">×</button></header>
+      <header class="asst-head"><img src="assets/img/favicon.png" alt="" /><div><b></b><small></small></div><button class="asst-x" id="asstClose" aria-label="Fermer">×</button></header>
       <div class="asst-log" id="asstLog" aria-live="polite"></div>
       <div class="asst-chips" id="asstChips"></div>
       <form class="asst-form" id="asstForm"><input id="asstIn" autocomplete="off" aria-label="Message" /><button aria-label="Envoyer">➤</button></form>

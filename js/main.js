@@ -1,5 +1,5 @@
 // Construit la page à partir de knowledge.js, gère FR/EN, le formulaire de devis (WhatsApp), le menu et l'assistant.
-import { BIZ, SERVICES, WHY, FAQ, FOUNDER } from "./knowledge.js";
+import { BIZ, SERVICES, WHY, FAQ, FOUNDER, GALLERY } from "./knowledge.js";
 import { mountAssistant } from "./assistant.js";
 
 const $ = (id) => document.getElementById(id);
@@ -9,7 +9,7 @@ const wa = (text) => `https://wa.me/${BIZ.whatsapp}?text=${encodeURIComponent(te
 // ---------------------------------------------------------------- translations (FR is the page's default text)
 const I18N = {
   en: {
-    nav_services: "Services", nav_why: "Why us", nav_biz: "Businesses", nav_about: "About", nav_contact: "Contact", cta_quote: "Get a quote",
+    nav_services: "Services", nav_why: "Why us", nav_gallery: "Gallery", hero_real: "Our real trucks, our real premises", gal_kicker: "Our facilities", gal_title: "On the ground, at the Port of Douala", gal_sub: "Our trucks, our tire workshop, our lubricants and our premises: what you'll find when you visit us.", nav_biz: "Businesses", nav_about: "About", nav_contact: "Contact", cta_quote: "Get a quote",
     hero_pill: "Transport · Logistics · Business services",
     hero_title: "Your trusted partner,<br /><span>more than a service, a solution.</span>",
     hero_lead: "At the Port of Douala since 2014: national and international road freight, logistics and warehousing, customs clearance, and tire specialists for cars and heavy trucks.",
@@ -96,7 +96,8 @@ function render() {
   $("footServices").innerHTML = SERVICES.map((s) => `<li><a href="#svc-${s.id}">${esc(s[L].name)}</a></li>`).join("");
   $("cAddr").textContent = BIZ.address[L]; $("cAddr").href = BIZ.maps;
   $("cHours").textContent = BIZ.hours[L];
-  $("topHours").textContent = `🕗 ${BIZ.hours[L]}`;
+  $("topHours").textContent = `🕗 ${BIZ.hoursShort[L]}`;
+  $("gallery").innerHTML = GALLERY.map((g, i) => `<button class="gal ${i === 0 ? "gal--big" : ""}" data-gal="${i}"><img src="assets/img/${g.img}" alt="${esc(g[L])}" loading="lazy" /><span>${esc(g[L])}</span></button>`).join("");
   const hello = L === "fr" ? "Bonjour TP & Fils, je souhaite un devis." : "Hello TP & Fils, I'd like a quote.";
   ["navWa", "heroWa", "bizWa"].forEach((id) => ($(id).href = wa(hello)));
   $("featWa").href = wa(L === "fr" ? "Bonjour TP & Fils, je souhaite organiser un transport de marchandises." : "Hello TP & Fils, I'd like to arrange a freight shipment.");
@@ -131,6 +132,13 @@ document.addEventListener("click", (e) => {
 });
 window.addEventListener("open-service", (e) => openService(e.detail));
 
+// gallery lightbox
+document.addEventListener("click", (e) => {
+  const g = e.target.closest("[data-gal]");
+  if (g) { const it = GALLERY[Number(g.dataset.gal)]; $("lbImg").src = `assets/img/${it.img}`; $("lbImg").alt = it[lang]; $("lbCap").textContent = it[lang]; $("lightbox").showModal(); }
+  if (e.target.closest("[data-close-lb]") || e.target === $("lightbox")) $("lightbox").close();
+});
+
 // quote form → WhatsApp (or email)
 function composeQuote() {
   const f = new FormData($("quoteForm"));
@@ -153,7 +161,7 @@ window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
 
 // reveal on scroll
 const io = "IntersectionObserver" in window ? new IntersectionObserver((es) => es.forEach((en) => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } }), { threshold: 0.1 }) : null;
-const watchReveal = () => document.querySelectorAll(".section .head, .svc, .why__card, .steps li, .feature, .about, .contact > *").forEach((el) => { if (!el.classList.contains("reveal")) { el.classList.add("reveal"); io ? io.observe(el) : el.classList.add("in"); } });
+const watchReveal = () => document.querySelectorAll(".section .head, .svc, .why__card, .steps li, .feature, .about, .contact > *, .gal").forEach((el) => { if (!el.classList.contains("reveal")) { el.classList.add("reveal"); io ? io.observe(el) : el.classList.add("in"); } });
 
 $("year").textContent = new Date().getFullYear();
 captureFrench();
@@ -162,3 +170,4 @@ assistant = mountAssistant(getLang);
 applyLang();
 watchReveal();
 new MutationObserver(watchReveal).observe($("serviceGrid"), { childList: true });
+new MutationObserver(watchReveal).observe($("gallery"), { childList: true });
