@@ -2,7 +2,7 @@
 // Fonctionne entièrement dans le navigateur : pas de compte, pas de clé API, pas de frais.
 // Il ne répond qu'à partir de knowledge.js (les infos de l'entreprise) et n'invente jamais de prix :
 // pour un tarif ou une disponibilité, il oriente vers WhatsApp ou le téléphone.
-import { BIZ, SERVICES, FAQ, FOUNDER } from "./knowledge.js?v=202610271555";
+import { BIZ, SERVICES, FAQ, FOUNDER } from "./knowledge.js?v=202610271630";
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const pick = (a) => a[Math.floor(Math.random() * a.length)];

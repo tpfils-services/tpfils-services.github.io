@@ -23,7 +23,7 @@ Toutes les informations (services, téléphones, adresse, horaires, FAQ, fondate
 Lundi – Vendredi 8h–18h · Samedi 9h–16h (heure du Cameroun). Téléphones et e-mail ne sont pas affichés en clair : les boutons WhatsApp / Appeler / E-mail ouvrent directement l’application (voir `js/contact.js`).
 
 ## Mise en ligne sur Google
-La ligne `<meta name="robots" content="noindex, nofollow">` dans `index.html` cache le site des moteurs de recherche pendant l'aperçu. La supprimer une fois le site validé.
+Le site est ouvert à Google : `robots.txt` et `sitemap.xml` à la racine, et une fiche entreprise (données structurées) dans `index.html`. Pensez à mettre à jour la date `lastmod` de `sitemap.xml` après un gros changement.
 
 ## Lancer en local
 ```bash

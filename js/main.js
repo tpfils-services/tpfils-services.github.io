@@ -1,7 +1,7 @@
 // Construit la page à partir de knowledge.js, gère FR/EN, le formulaire de devis (WhatsApp), le menu et l'assistant.
-import { BIZ, SERVICES, WHY, FAQ, FOUNDER, GALLERY } from "./knowledge.js?v=202610271555";
-import { mountAssistant } from "./assistant.js?v=202610271555";
-import { openContact } from "./contact.js?v=202610271555";
+import { BIZ, SERVICES, WHY, FAQ, FOUNDER, GALLERY } from "./knowledge.js?v=202610271630";
+import { mountAssistant } from "./assistant.js?v=202610271630";
+import { openContact } from "./contact.js?v=202610271630";
 
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -112,7 +112,7 @@ function render() {
 
 // socials + photo credits (required by the photo licenses)
 $("socials").innerHTML = BIZ.socials.map((s) => `<a href="${s.url}" target="_blank" rel="noopener" aria-label="${s.name}" class="soc soc--${s.icon}">${s.name}</a>`).join("");
-fetch("js/credits.json?v=202610271555").then((r) => r.json()).then((list) => {
+fetch("js/credits.json?v=202610271630").then((r) => r.json()).then((list) => {
   $("creditList").innerHTML = list.map((c) => `<li>${esc(c.file)}: « ${esc(c.title.replace(/\.jpg$/i, ""))} » par ${esc(c.artist)}, <a href="${c.page}" target="_blank" rel="noopener">${esc(c.license)}</a> (Wikimedia Commons), recadrée</li>`).join("");
 }).catch(() => {});
 
