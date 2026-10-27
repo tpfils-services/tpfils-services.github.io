@@ -29,3 +29,7 @@ La ligne `<meta name="robots" content="noindex, nofollow">` dans `index.html` ca
 ```bash
 python3 -m http.server 8000   # puis ouvrir http://localhost:8000
 ```
+
+## QR code
+`qr/qr-tpfils.png` (QR seul, avec logo) et `qr/qr-tpfils-affiche.png` (affiche imprimable). Vérifiés avec un lecteur ZXing à toutes les tailles.
+Pour changer l'adresse : `python qr/make_qr.py https://nouvelle-adresse/` (nécessite `pip install pillow "qrcode[pil]"`).
