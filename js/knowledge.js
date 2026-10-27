@@ -58,7 +58,7 @@ export const SERVICES = [
   { id: "personnel", icon: "team", img: null,
     fr: { name: "Mise à disposition de personnel", short: "Chauffeurs, manutentionnaires et techniciens pour vos opérations.", body: "Mise à disposition de personnel qualifié pour vos opérations : une équipe à votre service, formée au professionnalisme et à la sécurité. Décrivez-nous votre besoin (profils, durée, lieu)." },
     en: { name: "Staffing", short: "Drivers, handlers and technicians for your operations.", body: "Qualified staff for your operations: a team at your service, trained in professionalism and safety. Tell us what you need (profiles, duration, location)." } },
-  { id: "laverie", icon: "wash", img: "siege-entree.jpg",
+  { id: "laverie", icon: "wash", img: "lavage-auto.jpg",
     fr: { name: "Laverie moderne", short: "Lavage de véhicules légers et lourds.", body: "Une laverie moderne pour rendre à votre véhicule, voiture ou camion, toute sa propreté. Pratique pendant que votre véhicule est chez nous pour l'entretien." },
     en: { name: "Modern vehicle wash", short: "Washing for cars and heavy vehicles.", body: "A modern wash bay to get your car or truck clean again. Handy while your vehicle is with us for maintenance." } },
 ];
