@@ -73,18 +73,22 @@ export const WHY = [
 
 // Photos réelles de l'entreprise (galerie « Nos installations »)
 export const GALLERY = [
+  // Order matters: on desktop (4 columns) the first photo is 2×2 and "wide" photos span 2 columns,
+  // so the rows fill with no gaps. Keep the restaurant last (it is the final wide tile).
   { img: "camion-actros.jpg", fr: "Un de nos camions Mercedes-Benz Actros", en: "One of our Mercedes-Benz Actros trucks" },
   { img: "siege-panneaux.jpg", fr: "Notre siège en zone portuaire", en: "Our headquarters in the port zone" },
   { img: "camion-grue.jpg", fr: "Camion équipé d'une grue Hiab", en: "Truck fitted with a Hiab crane" },
   { img: "atelier-pneus.jpg", fr: "Atelier pneumatiques : montage et équilibrage", en: "Tire workshop: fitting and balancing" },
   { img: "camions-entree.jpg", fr: "Entretien des camions à l'entrée du site", en: "Truck maintenance at the site entrance" },
+  { img: "lavage-camion.jpg", wide: true, fr: "Lavage et entretien de camions", en: "Truck washing & detailing" },
   { img: "lubrifiants-elf.jpg", fr: "Huiles et lubrifiants disponibles sur place", en: "Oils and lubricants in stock" },
   { img: "pneus-poids-lourds.jpg", fr: "Pneus poids lourds neufs", en: "New heavy-truck tires" },
-  { img: "portail-semi-remorque.jpg", fr: "Semi-remorque devant nos locaux", en: "Semi-trailer in front of our premises" },
   { img: "equilibreuse.jpg", fr: "Équilibreuse de roues", en: "Wheel balancer" },
+  { img: "lavage-auto.jpg", wide: true, fr: "Lavage de véhicules", en: "Vehicle washing" },
+  { img: "portail-semi-remorque.jpg", fr: "Semi-remorque devant nos locaux", en: "Semi-trailer in front of our premises" },
   { img: "siege-facade.jpg", fr: "Nos locaux, Douala", en: "Our premises, Douala" },
   { img: "camion-renault.jpg", fr: "Camion à l'entrée du site", en: "Truck at the site entrance" },
-  { img: "restaurant.jpg", fr: "Espace restauration sur place", en: "On-site dining area" },
+  { img: "restaurant.jpg", wide: true, fr: "Espace restauration sur place", en: "On-site dining area" },
 ];
 
 export const FOUNDER = {

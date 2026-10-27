@@ -1,7 +1,7 @@
 // Construit la page à partir de knowledge.js, gère FR/EN, le formulaire de devis (WhatsApp), le menu et l'assistant.
-import { BIZ, SERVICES, WHY, FAQ, FOUNDER, GALLERY } from "./knowledge.js?v=202610271531";
-import { mountAssistant } from "./assistant.js?v=202610271531";
-import { openContact } from "./contact.js?v=202610271531";
+import { BIZ, SERVICES, WHY, FAQ, FOUNDER, GALLERY } from "./knowledge.js?v=202610271541";
+import { mountAssistant } from "./assistant.js?v=202610271541";
+import { openContact } from "./contact.js?v=202610271541";
 
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -97,7 +97,7 @@ function render() {
   $("cAddr").textContent = BIZ.address[L]; $("cAddr").href = BIZ.maps;
   $("cHours").textContent = BIZ.hours[L];
   $("topHours").textContent = `🕗 ${BIZ.hoursShort[L]}`;
-  $("gallery").innerHTML = GALLERY.map((g, i) => `<button class="gal ${i === 0 ? "gal--big" : ""}" data-gal="${i}"><img src="assets/img/${g.img}" alt="${esc(g[L])}" loading="lazy" /><span>${esc(g[L])}</span></button>`).join("");
+  $("gallery").innerHTML = GALLERY.map((g, i) => `<button class="gal${i === 0 ? " gal--big" : ""}${g.wide ? " gal--wide" : ""}${i === GALLERY.length - 1 ? " gal--last" : ""}" data-gal="${i}"><img src="assets/img/${g.img}" alt="${esc(g[L])}" loading="lazy" /><span>${esc(g[L])}</span></button>`).join("");
   const hello = L === "fr" ? "Bonjour TP & Fils, je souhaite un devis." : "Hello TP & Fils, I'd like a quote.";
   ["navWa", "heroWa", "bizWa"].forEach((id) => ($(id).dataset.msg = hello));
   $("featWa").dataset.msg = (L === "fr" ? "Bonjour TP & Fils, je souhaite organiser un transport de marchandises." : "Hello TP & Fils, I'd like to arrange a freight shipment.");
@@ -110,7 +110,7 @@ function render() {
 
 // socials + photo credits (required by the photo licenses)
 $("socials").innerHTML = BIZ.socials.map((s) => `<a href="${s.url}" target="_blank" rel="noopener" aria-label="${s.name}" class="soc soc--${s.icon}">${s.name}</a>`).join("");
-fetch("js/credits.json?v=202610271531").then((r) => r.json()).then((list) => {
+fetch("js/credits.json?v=202610271541").then((r) => r.json()).then((list) => {
   $("creditList").innerHTML = list.map((c) => `<li>${esc(c.file)}: « ${esc(c.title.replace(/\.jpg$/i, ""))} » par ${esc(c.artist)}, <a href="${c.page}" target="_blank" rel="noopener">${esc(c.license)}</a> (Wikimedia Commons), recadrée</li>`).join("");
 }).catch(() => {});
 
