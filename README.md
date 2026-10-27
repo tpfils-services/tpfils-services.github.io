@@ -33,3 +33,6 @@ python3 -m http.server 8000   # puis ouvrir http://localhost:8000
 ## QR code
 `qr/qr-tpfils.png` (QR seul, avec logo) et `qr/qr-tpfils-affiche.png` (affiche imprimable). Vérifiés avec un lecteur ZXing à toutes les tailles.
 Pour changer l'adresse : `python qr/make_qr.py https://nouvelle-adresse/` (nécessite `pip install pillow "qrcode[pil]"`).
+
+## Publier une mise à jour
+Lancer `python3 tools/bump_version.py` avant de publier : il ajoute un numéro de version aux fichiers CSS/JS pour que les visiteurs voient les changements tout de suite (sinon les navigateurs gardent l'ancienne version jusqu'à 10 minutes).
