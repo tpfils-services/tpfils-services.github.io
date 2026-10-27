@@ -304,3 +304,8 @@ blockquote { margin: 22px 0 0; padding: 16px 20px; border-left: 4px solid var(--
 .founder__sig { font: italic 600 clamp(1.6rem, 3.4vw, 2.3rem) Georgia, "Times New Roman", serif; color: var(--navy); border-top: 2px solid var(--yellow); padding-top: 8px; }
 .founder__place { font-size: .85rem; color: var(--muted); font-weight: 600; }
 @media (max-width: 860px) { .founder__in { grid-template-columns: 1fr; } .founder__ring { width: min(320px, 100%); } }
+/* contact buttons (numbers & email hidden behind them) */
+.cbtns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.lines { margin-top: 8px; }
+.lines summary { cursor: pointer; font: 600 .85rem var(--body); color: var(--blue-2); }
+.btn--sm { padding: 8px 14px; font-size: .85rem; border-radius: 10px; }

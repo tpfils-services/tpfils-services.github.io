@@ -1,0 +1,5 @@
+<!DOCTYPE html><meta charset="utf-8"><script type="module">
+// Checks the links each contact button builds.
+import { waUrl, telUrl, mailUrl } from "../js/contact.js";
+fetch("/log", { method: "POST", body: [waUrl("Bonjour TP & Fils"), telUrl(0), telUrl(1), telUrl(2), telUrl(3), mailUrl(), mailUrl("Demande entreprise"), mailUrl("Devis", "Nom : Test")].join("\n") });
+</script>

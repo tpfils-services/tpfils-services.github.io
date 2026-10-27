@@ -23,9 +23,9 @@
   <!-- top strip: phones, email, hours -->
   <div class="topstrip">
     <div class="wrap topstrip__in">
-      <a href="https://wa.me/237677513248" target="_blank" rel="noopener">💬 WhatsApp +237 677 51 32 48</a>
-      <a href="tel:+237679575821" class="hide-sm">📞 +237 679 57 58 21</a>
-      <a href="mailto:tpfilsservices@gmail.com" class="hide-sm">✉️ tpfilsservices@gmail.com</a>
+      <a href="#contact" data-contact="wa" data-i18n="top_wa">💬 WhatsApp</a>
+      <a href="#contact" data-contact="call">📞 <span data-i18n="top_call">Appeler</span></a>
+      <a href="#contact" data-contact="mail" class="hide-sm">✉️ <span data-i18n="top_mail">E-mail</span></a>
       <span class="hide-xs" id="topHours">🕗 Lun – Ven 8h–18h · Sam 9h–16h</span>
     </div>
   </div>
@@ -43,7 +43,7 @@
       <div class="lang" role="group" aria-label="Langue / Language">
         <button data-lang="fr" class="is-on">FR</button><button data-lang="en">EN</button>
       </div>
-      <a class="btn btn--wa nav__cta" id="navWa" target="_blank" rel="noopener" data-i18n="cta_quote">Demander un devis</a>
+      <a class="btn btn--wa nav__cta" id="navWa" href="#contact" data-contact="wa" data-i18n="cta_quote">Demander un devis</a>
       <button class="nav__toggle" id="navToggle" aria-label="Menu"><span></span><span></span></button>
     </div>
   </header>
@@ -64,8 +64,8 @@
         <h1 data-i18n-html="hero_title">Votre partenaire de confiance,<br /><span>plus qu'un service, une solution.</span></h1>
         <p class="lead" data-i18n="hero_lead">Depuis 2014 au Port de Douala : transport routier national et international, logistique et entreposage, dédouanement, et spécialiste en pneumatique pour véhicules légers et poids lourds.</p>
         <div class="hero__ctas">
-          <a class="btn btn--wa btn--lg" id="heroWa" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3.9 2.5c.1.2 1.6 2.5 3.9 3.5 1.5.6 2 .7 2.7.6.4-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.3z"/></svg><span data-i18n="cta_wa">Écrire sur WhatsApp</span></a>
-          <a class="btn btn--light btn--lg" href="tel:+237677513248" data-i18n="cta_call">Appeler maintenant</a>
+          <a class="btn btn--wa btn--lg" id="heroWa" href="#contact" data-contact="wa"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3.9 2.5c.1.2 1.6 2.5 3.9 3.5 1.5.6 2 .7 2.7.6.4-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.3z"/></svg><span data-i18n="cta_wa">Écrire sur WhatsApp</span></a>
+          <a class="btn btn--light btn--lg" href="#contact" data-contact="call" data-i18n="cta_call">Appeler maintenant</a>
         </div>
         <ul class="hero__stats">
           <li><b>2014</b><span data-i18n="stat_year">au service de Douala</span></li>
@@ -100,7 +100,7 @@
           <li data-i18n="feat_li3">Stockage, entreposage & distribution</li>
           <li data-i18n="feat_li4">Dédouanement & camions grue Hiab</li>
         </ul>
-        <a class="btn btn--wa" id="featWa" target="_blank" rel="noopener" data-i18n="feat_cta">Organiser un transport</a>
+        <a class="btn btn--wa" id="featWa" href="#contact" data-contact="wa" data-i18n="feat_cta">Organiser un transport</a>
       </div>
     </section>
 
@@ -142,8 +142,8 @@
           <p data-i18n="biz_body">Entretien de flotte, pneumatiques poids lourds, lubrifiants, levage, transport de marchandises et prestations industrielles : nous construisons une solution adaptée à votre activité.</p>
         </div>
         <div class="biz__cta">
-          <a class="btn btn--wa btn--lg" id="bizWa" target="_blank" rel="noopener" data-i18n="biz_cta">Discuter de mon projet</a>
-          <a class="btn btn--ghost-light" href="mailto:tpfilsservices@gmail.com?subject=Demande%20entreprise" data-i18n="biz_mail">Écrire un e-mail</a>
+          <a class="btn btn--wa btn--lg" id="bizWa" href="#contact" data-contact="wa" data-i18n="biz_cta">Discuter de mon projet</a>
+          <a class="btn btn--ghost-light" href="#contact" data-contact="mail" data-subject="Demande entreprise" data-i18n="biz_mail">Écrire un e-mail</a>
         </div>
       </div>
     </section>
@@ -202,9 +202,18 @@
           <h2 data-i18n="contact_title">Passez nous voir au Port de Douala</h2>
           <ul class="clist">
             <li><span>📍</span><div><b data-i18n="c_addr">Adresse</b><a id="cAddr" target="_blank" rel="noopener"></a><small>BP 4511 Douala, Littoral, Cameroun</small></div></li>
-            <li><span>💬</span><div><b>WhatsApp</b><a href="https://wa.me/237677513248" target="_blank" rel="noopener">+237 677 51 32 48</a></div></li>
-            <li><span>📞</span><div><b data-i18n="c_phone">Téléphone</b><a href="tel:+237677513248">+237 677 51 32 48</a><a href="tel:+237679575821">+237 679 57 58 21</a><a href="tel:+237697144397">+237 697 14 43 97</a><a href="tel:+237699517407">+237 699 51 74 07</a></div></li>
-            <li><span>✉️</span><div><b>E-mail</b><a href="mailto:tpfilsservices@gmail.com">tpfilsservices@gmail.com</a></div></li>
+            <li><span>📲</span><div><b data-i18n="c_reach">Nous joindre</b>
+              <div class="cbtns">
+                <button class="btn btn--wa btn--sm" data-contact="wa" data-i18n="c_wa">WhatsApp</button>
+                <button class="btn btn--light btn--sm" data-contact="call" data-i18n="c_call">Appeler</button>
+                <button class="btn btn--light btn--sm" data-contact="mail" data-i18n="c_mail">E-mail</button>
+              </div>
+              <details class="lines"><summary data-i18n="c_lines">Autres lignes</summary><div class="cbtns">
+                <button class="btn btn--light btn--sm" data-contact="call" data-line="1"><span data-i18n="c_line">Ligne</span> 2</button>
+                <button class="btn btn--light btn--sm" data-contact="call" data-line="2"><span data-i18n="c_line">Ligne</span> 3</button>
+                <button class="btn btn--light btn--sm" data-contact="call" data-line="3"><span data-i18n="c_line">Ligne</span> 4</button>
+              </div></details>
+            </div></li>
             <li><span>🕗</span><div><b data-i18n="c_hours">Horaires</b><span id="cHours"></span></div></li>
           </ul>
           <div class="socials" id="socials"></div>
@@ -229,7 +238,7 @@
     <div class="wrap footer__in">
       <div class="footer__brand"><img src="assets/img/logo-tp-services-sm.png" alt="TP & FILS Services SARL" /><p class="footer__motto" data-i18n="f_motto">Toujours plus loin avec vous !</p><p data-i18n="f_slogan">Toujours à votre écoute pour une meilleure qualité de service.</p></div>
       <div><b data-i18n="f_services">Services</b><ul id="footServices"></ul></div>
-      <div><b>Contact</b><ul><li><a href="https://wa.me/237677513248" target="_blank" rel="noopener">WhatsApp +237 677 51 32 48</a></li><li><a href="tel:+237679575821">+237 679 57 58 21</a></li><li><a href="tel:+237697144397">+237 697 14 43 97</a></li><li><a href="mailto:tpfilsservices@gmail.com">tpfilsservices@gmail.com</a></li><li>BP 4511 Douala</li></ul></div>
+      <div><b>Contact</b><ul><li><a href="#contact" data-contact="wa">💬 WhatsApp</a></li><li><a href="#contact" data-contact="call">📞 <span data-i18n="c_call">Appeler</span></a></li><li><a href="#contact" data-contact="mail">✉️ <span data-i18n="c_mail">E-mail</span></a></li><li>BP 4511 Douala</li></ul></div>
     </div>
     <div class="wrap footer__bottom">
       <span>© <span id="year"></span> TP & FILS Services SARL · Douala, Cameroun</span>

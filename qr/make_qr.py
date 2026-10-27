@@ -27,7 +27,7 @@ card = Image.new("RGB", (W + 2 * pad, W + 600), (255, 255, 255)); d = ImageDraw.
 d.rectangle((0, 0, card.width, 330), fill=(21, 55, 184))
 for text, size, y, color in [("Scannez pour visiter notre site", 92, 115, (255, 255, 255)),
                              ("Transport · Logistique · Pneumatiques · Port de Douala", 60, W + 385, (10, 23, 72)),
-                             ("WhatsApp +237 677 51 32 48", 70, W + 475, (31, 190, 90))]:
+                             ("Devis rapide sur WhatsApp", 70, W + 475, (31, 190, 90))]:
     f = font(size); d.text(((card.width - d.textlength(text, font=f)) / 2, y), text, font=f, fill=color)
 card.paste(img.convert("RGB"), (pad, 360))
 card.save(os.path.join(HERE, "qr-tpfils-affiche.png"))

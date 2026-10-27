@@ -1,15 +1,15 @@
 // Construit la page à partir de knowledge.js, gère FR/EN, le formulaire de devis (WhatsApp), le menu et l'assistant.
 import { BIZ, SERVICES, WHY, FAQ, FOUNDER, GALLERY } from "./knowledge.js";
 import { mountAssistant } from "./assistant.js";
+import { openContact } from "./contact.js";
 
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const wa = (text) => `https://wa.me/${BIZ.whatsapp}?text=${encodeURIComponent(text)}`;
 
 // ---------------------------------------------------------------- translations (FR is the page's default text)
 const I18N = {
   en: {
-    nav_services: "Services", nav_why: "Why us", nav_gallery: "Gallery", hero_real: "Our real trucks, our real premises", gal_kicker: "Our facilities", gal_title: "On the ground, at the Port of Douala", gal_sub: "Our trucks, our tire workshop, our lubricants and our premises: what you'll find when you visit us.", nav_biz: "Businesses", nav_about: "About", nav_contact: "Contact", cta_quote: "Get a quote",
+    top_wa: "💬 WhatsApp", top_call: "Call", top_mail: "Email", c_reach: "Reach us", c_wa: "WhatsApp", c_call: "Call", c_mail: "Email", c_lines: "Other lines", c_line: "Line", nav_services: "Services", nav_why: "Why us", nav_gallery: "Gallery", hero_real: "Our real trucks, our real premises", gal_kicker: "Our facilities", gal_title: "On the ground, at the Port of Douala", gal_sub: "Our trucks, our tire workshop, our lubricants and our premises: what you'll find when you visit us.", nav_biz: "Businesses", nav_about: "About", nav_contact: "Contact", cta_quote: "Get a quote",
     hero_pill: "Transport · Logistics · Business services",
     hero_title: "Your trusted partner,<br /><span>more than a service, a solution.</span>",
     hero_lead: "At the Port of Douala since 2014: national and international road freight, logistics and warehousing, customs clearance, and tire specialists for cars and heavy trucks.",
@@ -99,8 +99,8 @@ function render() {
   $("topHours").textContent = `🕗 ${BIZ.hoursShort[L]}`;
   $("gallery").innerHTML = GALLERY.map((g, i) => `<button class="gal ${i === 0 ? "gal--big" : ""}" data-gal="${i}"><img src="assets/img/${g.img}" alt="${esc(g[L])}" loading="lazy" /><span>${esc(g[L])}</span></button>`).join("");
   const hello = L === "fr" ? "Bonjour TP & Fils, je souhaite un devis." : "Hello TP & Fils, I'd like a quote.";
-  ["navWa", "heroWa", "bizWa"].forEach((id) => ($(id).href = wa(hello)));
-  $("featWa").href = wa(L === "fr" ? "Bonjour TP & Fils, je souhaite organiser un transport de marchandises." : "Hello TP & Fils, I'd like to arrange a freight shipment.");
+  ["navWa", "heroWa", "bizWa"].forEach((id) => ($(id).dataset.msg = hello));
+  $("featWa").dataset.msg = (L === "fr" ? "Bonjour TP & Fils, je souhaite organiser un transport de marchandises." : "Hello TP & Fils, I'd like to arrange a freight shipment.");
   $("svcCount").textContent = SERVICES.length;
   $("founderRole").textContent = FOUNDER[L].role;
   $("founderText").textContent = FOUNDER[L].text;
@@ -121,7 +121,7 @@ function openService(id) {
   $("svcBody").innerHTML = `<button class="modal__x" data-close aria-label="Fermer">×</button>
     ${s.img ? `<div class="modal__img"><img src="assets/img/${s.img}" alt="" /></div>` : `<div class="modal__img modal__img--icon">${icon(s.icon)}</div>`}
     <div class="modal__copy"><p class="kicker">${L === "fr" ? "Service" : "Service"}</p><h2>${esc(t.name)}</h2><p>${esc(t.body)}</p>
-    <div class="modal__ctas"><a class="btn btn--wa" target="_blank" rel="noopener" href="${wa((L === "fr" ? "Bonjour TP & Fils, je suis intéressé(e) par : " : "Hello TP & Fils, I'm interested in: ") + t.name)}">${L === "fr" ? "Demander un devis" : "Get a quote"}</a><a class="btn btn--light" href="tel:${BIZ.phones[0].tel}">${L === "fr" ? "Appeler" : "Call"}</a></div></div>`;
+    <div class="modal__ctas"><a class="btn btn--wa" href="#contact" data-contact="wa" data-msg="${esc((L === "fr" ? "Bonjour TP & Fils, je suis intéressé(e) par : " : "Hello TP & Fils, I'm interested in: ") + t.name)}">${L === "fr" ? "Demander un devis" : "Get a quote"}</a><a class="btn btn--light" href="#contact" data-contact="call">${L === "fr" ? "Appeler" : "Call"}</a></div></div>`;
   $("svcModal").showModal();
 }
 document.addEventListener("click", (e) => {
@@ -147,10 +147,10 @@ function composeQuote() {
     ? `Bonjour TP & Fils,\nJe souhaite un devis.\n\nNom : ${f.get("name")}${f.get("company") ? `\nEntreprise : ${f.get("company")}` : ""}\nTéléphone : ${f.get("phone")}\nService : ${f.get("service")}\n\n${f.get("msg")}`
     : `Hello TP & Fils,\nI'd like a quote.\n\nName: ${f.get("name")}${f.get("company") ? `\nCompany: ${f.get("company")}` : ""}\nPhone: ${f.get("phone")}\nService: ${f.get("service")}\n\n${f.get("msg")}`);
 }
-$("quoteForm").addEventListener("submit", (e) => { e.preventDefault(); window.open(wa(composeQuote()), "_blank", "noopener"); });
+$("quoteForm").addEventListener("submit", (e) => { e.preventDefault(); openContact("wa", { msg: composeQuote() }); });
 $("sendMail").addEventListener("click", () => {
   if (!$("quoteForm").reportValidity()) return;
-  location.href = `mailto:${BIZ.email}?subject=${encodeURIComponent(lang === "fr" ? "Demande de devis (site web)" : "Quote request (website)")}&body=${encodeURIComponent(composeQuote())}`;
+  openContact("mail", { subject: lang === "fr" ? "Demande de devis (site web)" : "Quote request (website)", body: composeQuote() });
 });
 
 // menu + header

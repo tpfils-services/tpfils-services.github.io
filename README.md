@@ -20,7 +20,7 @@ Toutes les informations (services, téléphones, adresse, horaires, FAQ, fondate
 - 3 photos d'illustration Wikimedia Commons (port de Douala, chargement, vidange), crédits en bas de page.
 
 ## Horaires & contact
-Lundi – Vendredi 8h–18h · Samedi 9h–16h (heure du Cameroun). WhatsApp : +237 677 51 32 48.
+Lundi – Vendredi 8h–18h · Samedi 9h–16h (heure du Cameroun). Téléphones et e-mail ne sont pas affichés en clair : les boutons WhatsApp / Appeler / E-mail ouvrent directement l’application (voir `js/contact.js`).
 
 ## Mise en ligne sur Google
 La ligne `<meta name="robots" content="noindex, nofollow">` dans `index.html` cache le site des moteurs de recherche pendant l'aperçu. La supprimer une fois le site validé.

@@ -6,12 +6,12 @@ import { BIZ, SERVICES, FAQ, FOUNDER } from "./knowledge.js";
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const pick = (a) => a[Math.floor(Math.random() * a.length)];
-const wa = (text) => `https://wa.me/${BIZ.whatsapp}?text=${encodeURIComponent(text)}`;
+
 
 // UI words
 const T = {
-  fr: { waBtn: "Écrire sur WhatsApp", call: "Appeler", mail: "Envoyer un e-mail", map: "Itinéraire", more: "Voir le service", placeholder: "Posez votre question…", title: "Assistant TP & Fils", sub: "Répond tout de suite · FR / EN", note: "Pour un prix exact, nos équipes vous répondent sur WhatsApp ou au téléphone.", fab: "Une question ?", hello: "Bonjour et bienvenue chez <b>TP & Fils Services</b> ! 👋 Pneus, lubrifiants, vidange, garage, transport, camions grue… Je vous oriente. Que puis-je faire pour vous ?" },
-  en: { waBtn: "Message on WhatsApp", call: "Call", mail: "Send an email", map: "Directions", more: "See the service", placeholder: "Ask your question…", title: "TP & Fils Assistant", sub: "Replies instantly · FR / EN", note: "For an exact price, our team answers on WhatsApp or by phone.", fab: "Questions?", hello: "Hello and welcome to <b>TP & Fils Services</b>! 👋 Tires, lubricants, oil changes, garage, transport, crane trucks… I'll point you in the right direction. How can I help?" },
+  fr: { waBtn: "WhatsApp", call: "Appeler", mail: "E-mail", map: "Itinéraire", more: "Voir le service", placeholder: "Posez votre question…", title: "Assistant TP & Fils", sub: "Répond tout de suite · FR / EN", note: "Pour un prix exact, nos équipes vous répondent sur WhatsApp ou au téléphone.", fab: "Une question ?", hello: "Bonjour et bienvenue chez <b>TP & Fils Services</b> ! 👋 Pneus, lubrifiants, vidange, garage, transport, camions grue… Je vous oriente. Que puis-je faire pour vous ?" },
+  en: { waBtn: "WhatsApp", call: "Call", mail: "Email", map: "Directions", more: "See the service", placeholder: "Ask your question…", title: "TP & Fils Assistant", sub: "Replies instantly · FR / EN", note: "For an exact price, our team answers on WhatsApp or by phone.", fab: "Questions?", hello: "Hello and welcome to <b>TP & Fils Services</b>! 👋 Tires, lubricants, oil changes, garage, transport, crane trucks… I'll point you in the right direction. How can I help?" },
 };
 const CHIPS = {
   fr: { start: ["Nos services", "Prix des pneus", "Location camion grue", "Où êtes-vous ?", "Horaires"], after: ["Demander un devis", "Où êtes-vous ?", "Nos services"] },
@@ -20,7 +20,7 @@ const CHIPS = {
 
 const contactBtns = (L, topic) => {
   const msg = L === "fr" ? `Bonjour TP & Fils, je vous contacte depuis votre site web${topic ? ` au sujet de : ${topic}` : ""}.` : `Hello TP & Fils, I'm reaching out from your website${topic ? ` about: ${topic}` : ""}.`;
-  return `<div class="chat-actions"><a class="chat-btn chat-btn--wa" href="${wa(msg)}" target="_blank" rel="noopener">${T[L].waBtn}</a><a class="chat-btn chat-btn--ghost" href="tel:${BIZ.phones[0].tel}">${T[L].call}</a></div>`;
+  return `<div class="chat-actions"><a class="chat-btn chat-btn--wa" href="#contact" data-contact="wa" data-msg="${esc(msg)}">${T[L].waBtn}</a><a class="chat-btn chat-btn--ghost" href="#contact" data-contact="call">${T[L].call}</a><a class="chat-btn chat-btn--ghost" href="#contact" data-contact="mail">${T[L].mail}</a></div>`;
 };
 const svcName = (s, L) => s[L].name;
 
@@ -58,7 +58,7 @@ const INTENTS = [
   { id: "hours", re: /\b(horaires?|heures?|ouvert\w*|ferm\w*|hours?|open\w*|clos\w*|samedi|dimanche|saturday|sunday|week-?end|aujourd'hui|today|demain|tomorrow)\b/, w: 3,
     a: (L) => `${esc(BIZ.hours[L])}. ${L === "fr" ? "En dehors de ces heures ou en cas d'urgence, appelez-nous ou laissez un message WhatsApp." : "Outside these hours or in an emergency, call us or leave a WhatsApp message."}${contactBtns(L)}` },
   { id: "contact", re: /\b(contact\w*|t[ée]l[ée]phone|phone|num[ée]ro|number|appeler|call|joindre|reach|whatsapp|wa|email|e-mail|mail|courriel|joignable)\b/, w: 3,
-    a: (L) => `📞 ${BIZ.phones.map((p) => `<a href="tel:${p.tel}">${p.label}</a>`).join(" · ")}<br>💬 WhatsApp : <a href="${wa(L === "fr" ? "Bonjour TP & Fils" : "Hello TP & Fils")}" target="_blank" rel="noopener">${BIZ.phones.find((p) => p.whatsapp).label}</a><br>✉️ <a href="mailto:${BIZ.email}">${BIZ.email}</a>${contactBtns(L)}` },
+    a: (L) => (L === "fr" ? "Le plus rapide, c'est WhatsApp 💬 Vous pouvez aussi nous appeler ou nous écrire un e-mail : touchez un bouton ci-dessous, votre application s'ouvre directement." : "WhatsApp is fastest 💬 You can also call or email us: tap a button below and your app opens directly.") + contactBtns(L) },
   { id: "founder", re: /\b(fondateur|founder|directeur|dg|patron|boss|owner|propri[ée]taire|talla|ceo|pdg|g[ée]rant)\b/, w: 3.2,
     a: (L) => L === "fr" ? `TP & FILS Services SARL a été fondée en ${BIZ.founded} par <b>M. ${FOUNDER.name}</b>, ${FOUNDER.fr.role}. Sous sa direction, l'entreprise est devenue une référence dans le transport, la logistique et les services au Port de Douala. Sa vision : un partenaire de confiance qui gère tout sous un même toit, des pneumatiques jusqu'au dédouanement.` : `TP & FILS Services SARL was founded in ${BIZ.founded} by <b>Mr. ${FOUNDER.name}</b>, ${FOUNDER.en.role}. Under his leadership, the company has become a reference in transport, logistics and services at the Port of Douala. His vision: a trusted partner that handles everything under one roof, from tires to customs clearance.` },
   { id: "about", re: /\b(qui (êtes|etes)|about|histoire|history|depuis|since|founded|cr[ée][ée]e?|fond[ée]e?|entreprise|company|employ[ée]s|staff|exp[ée]rience)\b/, w: 2.2,
@@ -68,7 +68,7 @@ const INTENTS = [
   { id: "pay", re: /\b(paiement|payer|payment|pay|mobile money|momo|orange money|om|esp[eè]ces|cash|carte|card|ch[eè]que|virement|transfer|cr[ée]dit|facture|invoice)\b/, w: 2.6,
     a: (L) => (L === "fr" ? "Pour les moyens de paiement et la facturation (particuliers comme entreprises), le plus simple est de voir directement avec nos équipes : elles vous confirment tout rapidement." : "For payment methods and invoicing (individuals or companies), it's easiest to check directly with our team: they'll confirm everything quickly.") + contactBtns(L, L === "fr" ? "le paiement" : "payment") },
   { id: "jobs", re: /\b(emploi|recrut\w*|job|jobs|travail|stage|internship|cv|candidature|hiring|career|carri[eè]re|postuler|apply)\b/, w: 3,
-    a: (L) => L === "fr" ? `Merci de votre intérêt pour TP & Fils ! Envoyez votre CV et une lettre de motivation à <a href="mailto:${BIZ.email}?subject=Candidature">${BIZ.email}</a>, en précisant le poste visé (mécanicien, chauffeur, etc.).` : `Thanks for your interest in TP & Fils! Send your CV and a cover letter to <a href="mailto:${BIZ.email}?subject=Job%20application">${BIZ.email}</a>, stating the role you're interested in (mechanic, driver, etc.).` },
+    a: (L) => L === "fr" ? `Merci de votre intérêt pour TP & Fils ! Envoyez votre CV et une lettre de motivation par e-mail, en précisant le poste visé (mécanicien, chauffeur, etc.).<div class="chat-actions"><a class="chat-btn" href="#contact" data-contact="mail" data-subject="Candidature">Envoyer ma candidature</a></div>` : `Thanks for your interest in TP & Fils! Send your CV and a cover letter by email, stating the role you're interested in (mechanic, driver, etc.).<div class="chat-actions"><a class="chat-btn" href="#contact" data-contact="mail" data-subject="Job application">Send my application</a></div>` },
   { id: "urgent", re: /\b(urgent\w*|urgence|emergency|vite|asap|maintenant|right now|bloqu[ée]|stuck|en panne|broke down|crev[ée]|flat)\b/, w: 3.2,
     a: (L) => (L === "fr" ? "Pas de panique, on est là 🙏 Appelez-nous directement ou écrivez sur WhatsApp en indiquant votre véhicule, le problème et votre position : nos équipes voient ce qu'elles peuvent faire au plus vite." : "Don't worry, we're here 🙏 Call us directly or message us on WhatsApp with your vehicle, the problem and your location: our team will see what they can do as fast as possible.") + contactBtns(L, L === "fr" ? "une urgence" : "an emergency") },
 ];
