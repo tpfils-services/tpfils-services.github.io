@@ -4,7 +4,7 @@ import sys, os
 import qrcode
 from PIL import Image, ImageDraw, ImageFont
 HERE = os.path.dirname(os.path.abspath(__file__))
-URL = sys.argv[1] if len(sys.argv) > 1 else "https://ftalla18.github.io/tpfils-services/"
+URL = sys.argv[1] if len(sys.argv) > 1 else "https://tpfils-services.github.io/"
 qr = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_H, box_size=24, border=2)
 qr.add_data(URL); qr.make(fit=True)
 img = qr.make_image(fill_color=(10, 23, 72), back_color="white").convert("RGBA")

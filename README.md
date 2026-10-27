@@ -2,7 +2,7 @@
 
 Site officiel (aperçu) de **TP & FILS Services SARL**, Port de Douala, Cameroun. Fondée en 2014 par M. Pierre TALLA.
 
-**Aperçu :** https://ftalla18.github.io/tpfils-services/
+**Aperçu :** https://tpfils-services.github.io/
 
 ## Contenu
 - **Français par défaut, bouton FR / EN** en haut de page (le choix est mémorisé).
