@@ -18,7 +18,7 @@ const I18N = {
     svc_kicker: "Our services", svc_title: "Everything for your vehicles, in one place", svc_sub: "Individuals, hauliers, worksites and companies: one partner for maintenance, tires, transport and lifting.",
     feat_kicker: "Transport & logistics", feat_title: "For a world without borders", feat_body: "From the port of Douala to the destination, in Cameroon and abroad: we transport, store, clear and deliver your goods. And for heavy loads, our Hiab crane trucks lift and load.",
     feat_li1: "National & international road freight", feat_li2: "Real-time tracking of your loads", feat_li3: "Storage, warehousing & distribution", feat_li4: "Customs clearance & Hiab crane trucks", feat_cta: "Arrange a shipment",
-    why_kicker: "Our values", why_title: "Professionalism · Safety · Performance", founder_kicker: "The founder", f_motto: "Going further, together!",
+    why_kicker: "Our values", why_title: "Professionalism · Safety · Performance", founder_kicker: "The founder", founder_since: "Founded in 2014", f_motto: "Going further, together!",
     how_kicker: "Quick and simple", how_title: "How it works",
     how1_t: "Contact us", how1_d: "WhatsApp, a call, or a visit to the port zone.", how2_t: "Diagnosis & quote", how2_d: "We listen to your needs and give you a clear price.",
     how3_t: "We get to work", how3_d: "Our team takes care of your vehicle or your load.", how4_t: "Satisfaction", how4_d: "Your satisfaction is our priority. We stay at your service.",

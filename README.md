@@ -15,7 +15,7 @@ Site officiel (aperçu) de **TP & FILS Services SARL**, Port de Douala, Cameroun
 Toutes les informations (services, téléphones, adresse, horaires, FAQ, fondateur) sont dans **`js/knowledge.js`**. Une modification met à jour la page ET l'assistant.
 
 ## Photos
-- Logo officiel extrait des supports marketing (`logo-tp-services.png`, fond transparent) et portrait du fondateur (`pierre-talla.jpg`).
+- Logo officiel extrait des supports marketing (`logo-tp-services.png`, fond transparent). Pas de photo du fondateur (à sa demande) : un emblème avec le logo et sa signature à la place.
 - 14 vraies photos de l'entreprise (camions, siège, atelier pneus, lubrifiants, restaurant), retouchées et agrandies pour le web. Les originaux restent en local dans `assets/originals/` (non publiés).
 - 3 photos d'illustration Wikimedia Commons (port de Douala, chargement, vidange), crédits en bas de page.
 
