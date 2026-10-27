@@ -6,7 +6,7 @@ Site officiel (aperçu) de **TP & FILS Services SARL**, Port de Douala, Cameroun
 
 ## Contenu
 - **Français par défaut, bouton FR / EN** en haut de page (le choix est mémorisé).
-- 12 services : pneumatiques (spécialité), transport routier national & international, logistique & entreposage, dédouanement, camions Hiab, huiles & lubrifiants, vidange & graissage, garage camions & voitures, pièces détachées, location de véhicules, mise à disposition de personnel, laverie moderne.
+- 13 services : pneumatiques (spécialité), transport routier national & international, logistique & entreposage, dédouanement, camions Hiab, huiles & lubrifiants, vidange & graissage, garage camions & voitures, pièces détachées, location de véhicules, mise à disposition de personnel, laverie moderne, point MTN Mobile Money & Orange Money (retrait, dépôt, factures ENEO et CAMWATER).
 - Section fondateur, valeurs (Rapidité · Sécurité · Efficacité · Professionnalisme), FAQ, carte, réseaux sociaux.
 - **Demande de devis** : le formulaire s'ouvre directement dans WhatsApp (ou par e-mail), prêt à envoyer.
 - **Assistant (chatbot)** : répond en français ou en anglais, ton professionnel et chaleureux, uniquement à partir des informations de l'entreprise. Il n'invente jamais de prix : il oriente vers WhatsApp / téléphone. Aucun compte, aucune clé, aucun frais.

@@ -2,7 +2,7 @@
 // Fonctionne entièrement dans le navigateur : pas de compte, pas de clé API, pas de frais.
 // Il ne répond qu'à partir de knowledge.js (les infos de l'entreprise) et n'invente jamais de prix :
 // pour un tarif ou une disponibilité, il oriente vers WhatsApp ou le téléphone.
-import { BIZ, SERVICES, FAQ, FOUNDER } from "./knowledge.js?v=202610271541";
+import { BIZ, SERVICES, FAQ, FOUNDER } from "./knowledge.js?v=202610271555";
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const pick = (a) => a[Math.floor(Math.random() * a.length)];
@@ -26,6 +26,7 @@ const svcName = (s, L) => s[L].name;
 
 // which service is the message about?
 const SVC_WORDS = [
+  ["mobilemoney", /\b(mobile money|momo|orange money|om|mtn|retraits?|retirer|d[ée]p[oô]ts?|d[ée]poser|cash ?(in|out)|withdraw\w*|deposit\w*|eneo|camwater|[ée]lectricit[ée]|electricity|factures? d'(eau|[ée]lectricit[ée])|(water|electricity|power) bills?)\b/],
   ["dedouanement", /\b(d[ée]douan\w*|douanes?|customs|transit\w*|formalit[ée]s?|clearance)\b/],
   ["logistique", /\b(logistiques?|logistics|stock\w*|entrep[oô]\w*|warehous\w*|storage|magasin\w*|distribution|gestion de flux)\b/],
   ["location", /\b(location de (v[ée]hicules?|voitures?|4x4|suv)|louer (une|un) (voiture|v[ée]hicule|4x4|suv|jeep)|car rental|rent(al)? (a )?(car|vehicle|suv|4x4)|voitures? de location)\b/],
@@ -62,7 +63,7 @@ const INTENTS = [
   { id: "founder", re: /\b(fondateur|founder|directeur|dg|patron|boss|owner|propri[ée]taire|talla|ceo|pdg|g[ée]rant)\b/, w: 3.2,
     a: (L) => L === "fr" ? `TP & FILS Services SARL a été fondée en ${BIZ.founded} par <b>M. ${FOUNDER.name}</b>, ${FOUNDER.fr.role}. Sous sa direction, l'entreprise est devenue une référence dans le transport, la logistique et les services au Port de Douala. Sa vision : un partenaire de confiance qui gère tout sous un même toit, des pneumatiques jusqu'au dédouanement.` : `TP & FILS Services SARL was founded in ${BIZ.founded} by <b>Mr. ${FOUNDER.name}</b>, ${FOUNDER.en.role}. Under his leadership, the company has become a reference in transport, logistics and services at the Port of Douala. His vision: a trusted partner that handles everything under one roof, from tires to customs clearance.` },
   { id: "about", re: /\b(qui (êtes|etes)|about|histoire|history|depuis|since|founded|cr[ée][ée]e?|fond[ée]e?|entreprise|company|employ[ée]s|staff|exp[ée]rience)\b/, w: 2.2,
-    a: (L) => L === "fr" ? `<b>TP & FILS Services SARL</b> a été fondée en <b>${BIZ.founded}</b> à Douala par M. ${FOUNDER.name}, et compte aujourd'hui plus de 55 collaborateurs. Installés en zone portuaire, nous sommes spécialistes en pneumatique et nous accompagnons particuliers, transporteurs et entreprises : transport routier national et international, logistique et entreposage, dédouanement, camions Hiab, lubrifiants, garage, location de véhicules et plus encore. ${esc(BIZ.tagline.fr)}` : `<b>TP & FILS Services SARL</b> was founded in <b>${BIZ.founded}</b> in Douala by Mr. ${FOUNDER.name} and today has a team of 55+ professionals. Based in the port zone, we're tire specialists and we serve individuals, hauliers and businesses: national and international road freight, logistics and warehousing, customs clearance, Hiab crane trucks, lubricants, garage, vehicle rental and more. ${esc(BIZ.tagline.en)}` },
+    a: (L) => L === "fr" ? `<b>TP & FILS Services SARL</b> a été fondée en <b>${BIZ.founded}</b> à Douala par M. ${FOUNDER.name}, et compte aujourd'hui plus de 55 collaborateurs. Installés en zone portuaire, nous sommes spécialistes en pneumatique et nous accompagnons particuliers, transporteurs et entreprises : transport routier national et international, logistique et entreposage, dédouanement, camions Hiab, lubrifiants, garage, location de véhicules, point MTN et Orange Money, et plus encore. ${esc(BIZ.tagline.fr)}` : `<b>TP & FILS Services SARL</b> was founded in <b>${BIZ.founded}</b> in Douala by Mr. ${FOUNDER.name} and today has a team of 55+ professionals. Based in the port zone, we're tire specialists and we serve individuals, hauliers and businesses: national and international road freight, logistics and warehousing, customs clearance, Hiab crane trucks, lubricants, garage, vehicle rental and more. ${esc(BIZ.tagline.en)}` },
   { id: "rating", re: /\b(avis|reviews?|note|rating|fiable|reliable|confiance|trust|s[ée]rieux|serious|recommand\w*)\b/, w: 2.4,
     a: (L) => L === "fr" ? `Nos clients nous notent <b>${BIZ.rating.score}/5 sur Google</b> ⭐ Depuis ${BIZ.founded}, notre priorité reste la même : votre satisfaction. Vous êtes client ? Un avis Google nous aide beaucoup 🙏` : `Customers rate us <b>${BIZ.rating.scoreEn}/5 on Google</b> ⭐ Since ${BIZ.founded}, our priority hasn't changed: your satisfaction. Already a customer? A Google review helps us a lot 🙏` },
   { id: "pay", re: /\b(paiement|payer|payment|pay|mobile money|momo|orange money|om|esp[eè]ces|cash|carte|card|ch[eè]que|virement|transfer|cr[ée]dit|facture|invoice)\b/, w: 2.6,
@@ -92,7 +93,7 @@ export function reply(text, ctx = {}, siteLang = "fr") {
   for (const it of INTENTS) if (it.re.test(t) && it.w > score) { best = it; score = it.w; }
 
   // a service named, and no stronger intent → explain the service
-  if (svc && (!best || ["services", "about", "thanks"].includes(best.id))) {
+  if (svc && (!best || ["services", "about", "thanks"].includes(best.id) || (svc.id === "mobilemoney" && ["pay", "price"].includes(best.id)))) {
     const s = svc[L];
     return { html: `<b>${esc(s.name)}</b><p>${esc(s.body)}</p>${contactBtns(L, s.name)}<div class="chat-actions"><a class="chat-btn chat-btn--ghost" href="#svc-${svc.id}" data-open-service="${svc.id}">${T[L].more}</a></div>`, chips: L === "fr" ? ["Et le prix ?", "Où êtes-vous ?", "Horaires"] : ["What about price?", "Where are you?", "Opening hours"], ctx: c, lang: L };
   }

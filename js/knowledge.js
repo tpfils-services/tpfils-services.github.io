@@ -61,6 +61,10 @@ export const SERVICES = [
   { id: "laverie", icon: "wash", img: "lavage-auto.jpg",
     fr: { name: "Laverie moderne", short: "Lavage de véhicules légers et lourds.", body: "Une laverie moderne pour rendre à votre véhicule, voiture ou camion, toute sa propreté. Pratique pendant que votre véhicule est chez nous pour l'entretien." },
     en: { name: "Modern vehicle wash", short: "Washing for cars and heavy vehicles.", body: "A modern wash bay to get your car or truck clean again. Handy while your vehicle is with us for maintenance." } },
+  // "wide": shown as a full-width card at the end of the services grid, with its operations as chips
+  { id: "mobilemoney", icon: "phone", img: "mobile-money.jpg", modalImg: "mobile-money-portrait.jpg", wide: true,
+    fr: { name: "Mobile Money : MTN & Orange Money", short: "Point MTN Mobile Money et Orange Money disponible ici : retrait, dépôt et paiement de vos factures sur place.", body: "Un point MTN Mobile Money et Orange Money au sein de nos locaux : retrait et dépôt d'argent, paiement de vos factures ENEO (électricité) et CAMWATER (eau). Rapide et pratique, pendant nos heures d'ouverture, même pendant l'entretien de votre véhicule.", ops: ["Retrait", "Dépôt", "Facture ENEO", "Facture CAMWATER"], cta: "Nous écrire" },
+    en: { name: "Mobile Money: MTN & Orange Money", short: "MTN Mobile Money and Orange Money point available here: withdrawals, deposits and bill payments on site.", body: "An MTN Mobile Money and Orange Money point inside our premises: cash withdrawals and deposits, plus payment of your ENEO (electricity) and CAMWATER (water) bills. Quick and convenient during our opening hours, even while your vehicle is being serviced.", ops: ["Withdrawal", "Deposit", "ENEO bill", "CAMWATER bill"], cta: "Message us" } },
 ];
 
 // Nos valeurs (supports marketing de l'entreprise)
@@ -98,6 +102,7 @@ export const FOUNDER = {
 };
 
 export const FAQ = [
+  { fr: ["Puis-je retirer de l'argent ou payer ma facture ENEO chez vous ?", "Oui. Nous avons un point MTN Mobile Money et Orange Money sur place : retrait, dépôt, et paiement des factures ENEO et CAMWATER, pendant nos heures d'ouverture."], en: ["Can I withdraw cash or pay my ENEO bill at your place?", "Yes. We have an MTN Mobile Money and Orange Money point on site: withdrawals, deposits, and ENEO and CAMWATER bill payments during our opening hours."] },
   { fr: ["Où êtes-vous situés ?", "Dans la Zone Portuaire de Douala, entre la Direction Générale de BRÖLI et le Garage SOCOMAR. Boîte postale : BP 4511 Douala."], en: ["Where are you located?", "In the Port Zone of Douala, between BRÖLI headquarters and the SOCOMAR garage. P.O. Box: BP 4511 Douala."] },
   { fr: ["Quels sont vos horaires ?", "Du lundi au vendredi de 8h00 à 18h00, et le samedi de 9h00 à 16h00 (heure du Cameroun). Pour une urgence, appelez-nous ou écrivez sur WhatsApp."], en: ["What are your hours?", "Monday to Friday 8:00 AM to 6:00 PM, and Saturday 9:00 AM to 4:00 PM (Cameroon time). For an emergency, call or message us on WhatsApp."] },
   { fr: ["Vous travaillez sur les camions et poids lourds ?", "Oui. Garage, pneus, vidange, graissage et pièces pour véhicules légers ET poids lourds."], en: ["Do you work on trucks and heavy vehicles?", "Yes. Garage, tires, oil changes, greasing and parts for cars AND heavy trucks."] },

@@ -1,7 +1,7 @@
 // Construit la page à partir de knowledge.js, gère FR/EN, le formulaire de devis (WhatsApp), le menu et l'assistant.
-import { BIZ, SERVICES, WHY, FAQ, FOUNDER, GALLERY } from "./knowledge.js?v=202610271541";
-import { mountAssistant } from "./assistant.js?v=202610271541";
-import { openContact } from "./contact.js?v=202610271541";
+import { BIZ, SERVICES, WHY, FAQ, FOUNDER, GALLERY } from "./knowledge.js?v=202610271555";
+import { mountAssistant } from "./assistant.js?v=202610271555";
+import { openContact } from "./contact.js?v=202610271555";
 
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -73,6 +73,7 @@ const ICONS = {
   warehouse: '<path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8M7 17h10"/>',
   doc: '<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/><circle cx="17" cy="17" r="0" />',
   car: '<path d="M5 17h14M3 13l2-5a2 2 0 0 1 2-1h10a2 2 0 0 1 2 1l2 5v4H3z"/><circle cx="7" cy="17" r="1.6"/><circle cx="17" cy="17" r="1.6"/>',
+  phone: '<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10.5 18.5h3"/><path d="M12 7v6M9.5 10.5L12 13l2.5-2.5"/>',
   team: '<circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20a6 6 0 0 1 12 0M14 20a5 5 0 0 1 7-4.6"/>',
   bolt: '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
   shield: '<path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/>',
@@ -85,9 +86,10 @@ function render() {
   const L = lang;
   $("ticker").innerHTML = [0, 1].map(() => `<div>${SERVICES.map((s) => `<span>${esc(s[L].name)}</span><i>●</i>`).join("")}</div>`).join("");
   $("serviceGrid").innerHTML = SERVICES.map((s) => `
-    <article class="svc ${s.img ? "svc--img" : ""}" id="svc-${s.id}">
+    <article class="svc${s.img ? " svc--img" : ""}${s.wide ? " svc--wide" : ""}" id="svc-${s.id}">
       ${s.img ? `<div class="svc__img"><img src="assets/img/${s.img}" alt="" loading="lazy" /></div>` : ""}
       <div class="svc__body"><span class="svc__icon">${icon(s.icon)}</span><h3>${esc(s[L].name)}</h3><p>${esc(s[L].short)}</p>
+      ${s[L].ops ? `<ul class="svc__ops">${s[L].ops.map((o) => `<li>${esc(o)}</li>`).join("")}</ul>` : ""}
       <button class="svc__more" data-service="${s.id}">${L === "fr" ? "En savoir plus" : "Learn more"} →</button></div>
     </article>`).join("");
   $("whyGrid").innerHTML = WHY.map((w) => `<div class="why__card"><span class="why__icon">${icon(w.icon)}</span><h3>${esc(w[L][0])}</h3><p>${esc(w[L][1])}</p></div>`).join("");
@@ -110,7 +112,7 @@ function render() {
 
 // socials + photo credits (required by the photo licenses)
 $("socials").innerHTML = BIZ.socials.map((s) => `<a href="${s.url}" target="_blank" rel="noopener" aria-label="${s.name}" class="soc soc--${s.icon}">${s.name}</a>`).join("");
-fetch("js/credits.json?v=202610271541").then((r) => r.json()).then((list) => {
+fetch("js/credits.json?v=202610271555").then((r) => r.json()).then((list) => {
   $("creditList").innerHTML = list.map((c) => `<li>${esc(c.file)}: « ${esc(c.title.replace(/\.jpg$/i, ""))} » par ${esc(c.artist)}, <a href="${c.page}" target="_blank" rel="noopener">${esc(c.license)}</a> (Wikimedia Commons), recadrée</li>`).join("");
 }).catch(() => {});
 
@@ -119,9 +121,10 @@ function openService(id) {
   const s = SERVICES.find((x) => x.id === id); if (!s) return;
   const L = lang, t = s[L];
   $("svcBody").innerHTML = `<button class="modal__x" data-close aria-label="Fermer">×</button>
-    ${s.img ? `<div class="modal__img"><img src="assets/img/${s.img}" alt="" /></div>` : `<div class="modal__img modal__img--icon">${icon(s.icon)}</div>`}
+    ${s.img ? `<div class="modal__img"><picture>${s.modalImg ? `<source media="(min-width: 861px)" srcset="assets/img/${s.modalImg}" />` : ""}<img src="assets/img/${s.img}" alt="" /></picture></div>` : `<div class="modal__img modal__img--icon">${icon(s.icon)}</div>`}
     <div class="modal__copy"><p class="kicker">${L === "fr" ? "Service" : "Service"}</p><h2>${esc(t.name)}</h2><p>${esc(t.body)}</p>
-    <div class="modal__ctas"><a class="btn btn--wa" href="#contact" data-contact="wa" data-msg="${esc((L === "fr" ? "Bonjour TP & Fils, je suis intéressé(e) par : " : "Hello TP & Fils, I'm interested in: ") + t.name)}">${L === "fr" ? "Demander un devis" : "Get a quote"}</a><a class="btn btn--light" href="#contact" data-contact="call">${L === "fr" ? "Appeler" : "Call"}</a></div></div>`;
+    ${t.ops ? `<ul class="svc__ops">${t.ops.map((o) => `<li>${esc(o)}</li>`).join("")}</ul>` : ""}
+    <div class="modal__ctas"><a class="btn btn--wa" href="#contact" data-contact="wa" data-msg="${esc((L === "fr" ? "Bonjour TP & Fils, je suis intéressé(e) par : " : "Hello TP & Fils, I'm interested in: ") + t.name)}">${t.cta || (L === "fr" ? "Demander un devis" : "Get a quote")}</a><a class="btn btn--light" href="#contact" data-contact="call">${L === "fr" ? "Appeler" : "Call"}</a></div></div>`;
   $("svcModal").showModal();
 }
 document.addEventListener("click", (e) => {
