@@ -1,0 +1,8 @@
+<!DOCTYPE html><meta charset="utf-8"><script type="module">
+// Realistic customer questions (FR + EN): print the start of each answer.
+import { reply } from "../js/assistant.js";
+const QS = [["Bonjour, vous vendez des pneus pour camion ?","fr"],["c'est combien un pneu 12R22.5 ?","fr"],["je cherche un camion pour transporter 20 tonnes de ciment à Yaoundé","fr"],["vous faites le transit des conteneurs au port ?","fr"],["mon camion fait un bruit au niveau du frein","fr"],["est-ce que vous faites le dépôt Orange Money ?","fr"],["je veux payer ma facture ENEO","fr"],["vous êtes ouverts le dimanche ?","fr"],["où se trouve votre agence exactement ?","fr"],["vous recrutez des chauffeurs poids lourds ?","fr"],["je veux louer une voiture avec chauffeur pour un mariage","fr"],["il faut combien de temps pour le dédouanement ?","fr"],["vous livrez à Kribi ?","fr"],["vous avez l'huile Total Quartz ?","fr"],["mon pneu a crevé sur l'autoroute, vous pouvez venir ?","fr"],["Hello, do you sell tyres for cars?","fr"],["How much to rent a Hiab crane truck for one day?","en"],["Can you clear my container at Douala port?","en"],["What are your opening hours on Saturday?","en"],["Do you accept mobile money?","en"],["I want to wash my car","en"],["qui est le patron ?","fr"],["merci beaucoup","fr"],["vous faites la vidange des Toyota ?","fr"]];
+const out = []; let ctx = {};
+for (const [q, l] of QS) { const r = reply(q, {}, l); const d = document.createElement("div"); d.innerHTML = r.html; out.push(`Q: ${q}\nA(${r.lang}): ${d.textContent.replace(/\s+/g, " ").slice(0, 230)}\n`); }
+await fetch("/log", { method: "POST", body: out.join("\n") });
+</script>
