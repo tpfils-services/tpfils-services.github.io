@@ -1,7 +1,7 @@
 // Construit la page à partir de knowledge.js, gère FR/EN, le formulaire de devis (WhatsApp), le menu et l'assistant.
-import { BIZ, SERVICES, WHY, FAQ, FOUNDER, GALLERY } from "./knowledge.js?v=202611011218";
-import { mountAssistant } from "./assistant.js?v=202611011218";
-import { openContact } from "./contact.js?v=202611011218";
+import { BIZ, SERVICES, WHY, FAQ, FOUNDER, GALLERY } from "./knowledge.js?v=202611081222";
+import { mountAssistant } from "./assistant.js?v=202611081222";
+import { openContact } from "./contact.js?v=202611081222";
 
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -112,7 +112,7 @@ function render() {
 
 // socials + photo credits (required by the photo licenses)
 $("socials").innerHTML = BIZ.socials.map((s) => `<a href="${s.url}" target="_blank" rel="noopener" aria-label="${s.name}" class="soc soc--${s.icon}">${s.name}</a>`).join("");
-fetch("js/credits.json?v=202611011218").then((r) => r.json()).then((list) => {
+fetch("js/credits.json?v=202611081222").then((r) => r.json()).then((list) => {
   $("creditList").innerHTML = list.map((c) => `<li>${esc(c.file)}: « ${esc(c.title.replace(/\.jpg$/i, ""))} » par ${esc(c.artist)}, <a href="${c.page}" target="_blank" rel="noopener">${esc(c.license)}</a> (Wikimedia Commons), recadrée</li>`).join("");
 }).catch(() => {});
 
@@ -131,7 +131,7 @@ document.addEventListener("click", (e) => {
   const b = e.target.closest("[data-service]"); if (b) openService(b.dataset.service);
   if (e.target.closest("[data-close]") || e.target === $("svcModal")) $("svcModal").close();
   const lb = e.target.closest(".lang button");
-  if (lb && lb.dataset.lang !== lang) { lang = lb.dataset.lang; try { localStorage.setItem("tp.lang", lang); } catch {} applyLang(); }
+  if (lb && lb.dataset.lang !== lang) { lang = lb.dataset.lang; try { localStorage.setItem("tp.lang", lang); } catch {} applyLang(); window.SiteTrack?.event("lang", lang); }
 });
 window.addEventListener("open-service", (e) => openService(e.detail));
 
@@ -150,9 +150,16 @@ function composeQuote() {
     ? `Bonjour TP & Fils,\nJe souhaite un devis.\n\nNom : ${f.get("name")}${f.get("company") ? `\nEntreprise : ${f.get("company")}` : ""}\nTéléphone : ${f.get("phone")}\nService : ${f.get("service")}\n\n${f.get("msg")}`
     : `Hello TP & Fils,\nI'd like a quote.\n\nName: ${f.get("name")}${f.get("company") ? `\nCompany: ${f.get("company")}` : ""}\nPhone: ${f.get("phone")}\nService: ${f.get("service")}\n\n${f.get("msg")}`);
 }
-$("quoteForm").addEventListener("submit", (e) => { e.preventDefault(); openContact("wa", { msg: composeQuote() }); });
+// every quote request is also saved to the private Google Sheet (lead list), then opens WhatsApp or email as before
+function logQuote(via) {
+  const f = new FormData($("quoteForm"));
+  window.SiteTrack?.record("quote", { name: f.get("name"), company: f.get("company"), phone: f.get("phone"), service: f.get("service"), msg: f.get("msg"), via, lang });
+  window.SiteTrack?.event("quote", f.get("service"));
+}
+$("quoteForm").addEventListener("submit", (e) => { e.preventDefault(); logQuote("WhatsApp"); openContact("wa", { msg: composeQuote() }); });
 $("sendMail").addEventListener("click", () => {
   if (!$("quoteForm").reportValidity()) return;
+  logQuote("E-mail");
   openContact("mail", { subject: lang === "fr" ? "Demande de devis (site web)" : "Quote request (website)", body: composeQuote() });
 });
 

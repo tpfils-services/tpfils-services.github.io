@@ -16,6 +16,7 @@ export const lineCount = parts.lines.length;
 
 /** Open the right app for a contact button. */
 export function openContact(kind, { msg = "", subject = "", body = "", line = 0 } = {}) {
+  window.SiteTrack?.event(kind === "mail" ? "mail" : kind === "call" ? "call" : "wa");
   if (kind === "wa") window.open(waUrl(msg), "_blank", "noopener");
   else if (kind === "call") location.href = telUrl(line);
   else if (kind === "mail") location.href = mailUrl(subject, body);

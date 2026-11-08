@@ -7,7 +7,8 @@ ROOT = Path(__file__).resolve().parent.parent
 VER = time.strftime("%Y%m%d%H%M")
 tag = lambda m: f'{m.group(1)}?v={VER}'
 files = {
-    "index.html": [r'(css/styles\.css)(?:\?v=\w+)?', r'(js/main\.js)(?:\?v=\w+)?'],
+    "index.html": [r'(css/styles\.css)(?:\?v=\w+)?', r'(js/main\.js)(?:\?v=\w+)?', r'(js/track\.js)(?:\?v=\w+)?'],
+    "pit/index.html": [r'(pit\.css|dash\.js|spec\.js|strings\.js)(?:\?v=\w+)?'],
     "js/main.js": [r'(\./(?:knowledge|assistant|contact)\.js)(?:\?v=\w+)?', r'(js/credits\.json)(?:\?v=\w+)?'],
     "js/assistant.js": [r'(\./(?:knowledge|contact)\.js)(?:\?v=\w+)?'],
 }

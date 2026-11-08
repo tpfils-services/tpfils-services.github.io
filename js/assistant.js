@@ -2,7 +2,7 @@
 // Fonctionne entièrement dans le navigateur : pas de compte, pas de clé API, pas de frais.
 // Il ne répond qu'à partir de knowledge.js (les infos de l'entreprise) et n'invente jamais de prix :
 // pour un tarif ou une disponibilité, il oriente vers WhatsApp ou le téléphone.
-import { BIZ, SERVICES, FAQ, FOUNDER } from "./knowledge.js?v=202611011218";
+import { BIZ, SERVICES, FAQ, FOUNDER } from "./knowledge.js?v=202611081222";
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const pick = (a) => a[Math.floor(Math.random() * a.length)];
@@ -189,7 +189,7 @@ export function reply(text, ctx = {}, siteLang = "fr") {
   const f = FAQ.find((q) => words.filter((w) => strip(q[L][0]).includes(w)).length >= 2);
   if (f) return { html: esc(f[L][1]), chips: CHIPS[L].after, ctx: c, lang: L };
 
-  return { html: (L === "fr" ? "Je ne suis pas sûr de bien comprendre, et je préfère ne pas vous dire n'importe quoi 🙂 Envoyez votre question à nos équipes, elles vous répondent directement :" : "I'm not sure I understood, and I'd rather not guess 🙂 Send your question to our team, they'll answer you directly:") + contactBtns(L, "", text) + (L === "fr" ? "<br>Vous pouvez aussi me demander : nos services, les prix, notre adresse, nos horaires, la location de camions grue…" : "<br>You can also ask me about: our services, prices, our address, opening hours, crane truck rental…"), chips: CHIPS[L].start, ctx: c, lang: L };
+  return { html: (L === "fr" ? "Je ne suis pas sûr de bien comprendre, et je préfère ne pas vous dire n'importe quoi 🙂 Envoyez votre question à nos équipes, elles vous répondent directement :" : "I'm not sure I understood, and I'd rather not guess 🙂 Send your question to our team, they'll answer you directly:") + contactBtns(L, "", text) + (L === "fr" ? "<br>Vous pouvez aussi me demander : nos services, les prix, notre adresse, nos horaires, la location de camions grue…" : "<br>You can also ask me about: our services, prices, our address, opening hours, crane truck rental…"), chips: CHIPS[L].start, ctx: c, lang: L, miss: true };
 }
 
 // ---------------------------------------------------------------- chat widget
@@ -223,11 +223,12 @@ export function mountAssistant(getLang) {
     add("me", esc(text)); chips([]);
     const typing = add("bot", `<span class="typing"><i></i><i></i><i></i></span>`);
     const r = reply(text, ctx, getLang()); ctx = r.ctx;
+    window.SiteTrack?.event(r.miss ? "chat_miss" : "chat_q", text);
     setTimeout(() => { typing.innerHTML = r.html; log.scrollTop = log.scrollHeight; chips(r.chips); }, 450 + Math.min(900, r.html.length));
   };
   const open = () => {
     $("asstPanel").hidden = false; root.classList.add("is-open");
-    if (!opened) { opened = true; const L = getLang(); add("bot", T[L].hello); chips(CHIPS[L].start); }
+    if (!opened) { opened = true; window.SiteTrack?.event("chat_open"); const L = getLang(); add("bot", T[L].hello); chips(CHIPS[L].start); }
     setTimeout(() => $("asstIn").focus(), 50);
   };
   $("asstFab").onclick = open;
