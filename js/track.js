@@ -3,7 +3,7 @@
 // Les appareils connectés au tableau de bord ne sont pas comptés.
 (function () {
   const SET = {
-    url: "",                                                                 // URL de l'application Web Apps Script (…/exec), voir apps-script/SETUP.md
+    url: "https://script.google.com/macros/s/AKfycbzFXxRhDFwdWoLxueRtuXGPgMfjUCBma3QQUeSP1_1uQtZvx5AJzyvVcRt_GvuYdR_m/exec",                                                                 // URL de l'application Web Apps Script (…/exec), voir apps-script/SETUP.md
     pit: new URL("pit/", document.currentScript.src.replace(/js\/track\.js.*$/, "")).href,
     visitDetail: () => { try { return localStorage.getItem("tp.lang") || "fr"; } catch { return "fr"; } },   // site language at the visit
   };

@@ -1,7 +1,7 @@
 // Tableau de bord TP & FILS : ce que le moteur commun (dash.js) affiche pour ce site. Français par défaut, anglais en option.
 const EN_STATUS = { Nouveau: "New", "Contacté": "Contacted", "Devis envoyé": "Quote sent", "Gagné": "Won", Perdu: "Lost" };
 window.PIT = {
-  url: "",                                                                   // URL de l'application Web Apps Script (…/exec), la même que dans js/track.js
+  url: "https://script.google.com/macros/s/AKfycbzFXxRhDFwdWoLxueRtuXGPgMfjUCBma3QQUeSP1_1uQtZvx5AJzyvVcRt_GvuYdR_m/exec",                                                                   // URL de l'application Web Apps Script (…/exec), la même que dans js/track.js
   langs: ["fr", "en"],
   phoneCountry: { len: 9, code: "237" },                                     // numéros camerounais à 9 chiffres
   t: pitText({
