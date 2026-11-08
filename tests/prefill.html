@@ -1,5 +1,0 @@
-<!DOCTYPE html><meta charset="utf-8"><script type="module">
-import { reply } from "../js/assistant.js";
-const d = document.createElement("div"); d.innerHTML = reply("je cherche un camion pour transporter 20 tonnes de ciment à Yaoundé", {}, "fr").html;
-await fetch("/log", { method: "POST", body: "WhatsApp message: " + d.querySelector('[data-contact="wa"]').dataset.msg });
-</script>

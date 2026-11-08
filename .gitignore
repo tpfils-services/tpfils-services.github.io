@@ -2,3 +2,6 @@
 # source files stay local (only web-ready versions are published)
 assets/marketing/
 assets/originals/
+
+# local test pages (never published)
+tests/
